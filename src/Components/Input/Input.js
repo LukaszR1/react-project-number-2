@@ -1,14 +1,12 @@
-export default function CurrencyInput({ inputChange }) {
+export default function CurrencyInput({ inputChange, value }) {
   return (
-    
     <input
       type="number"
       className="currencies-input"
       id="currencies-input"
       placeholder="Wpisz kwotę"
-      onChange={(event)=>inputChange(event.target.value)}
+      value={value}
+      onChange={(event) => inputChange(event.target.value)}
     />
-
-
   );
 }
