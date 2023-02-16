@@ -1,5 +1,5 @@
 import "./App.css";
-import Header from "./Components/Header";
+import Header from "./Components/Header/Header";
 import CurrencyInput from "./Components/Input/Input";
 import SelectCurrencies from "./Components/Select/Select";
 import CounterButton from "./Components/Button/Button";
@@ -10,24 +10,24 @@ import Loader from "./Components/Loader/Loader";
 import Result from "./Components/Result/Result";
 
 function App() {
-  const [inputValue, setInputValue] = useState(0);
+  const [inputValue, setInputValue] = useState("");
   const [selectValue, setSelectValue] = useState("Wybierz walutę");
   const [result, setResult] = useState(0);
   const [isLoading, setisLoading] = useState("");
   const [alert, setAlert] = useState("");
+  const [inset, setInset] = useState("");
   function handleInputChange(value) {
     setInputValue(value);
   }
-  
+
   function handleSelectChange(value) {
     setSelectValue(value);
   }
- 
 
   function handleButtonClick() {
     if (inputValue <= 0 || inputValue === "") {
       setAlert("wartość musi być większą od zera");
-    } else if (selectValue === "Wybierz walutę" ) {
+    } else if (selectValue === "Wybierz walutę") {
       setAlert("wybierz walutę");
     } else {
       calculateResult();
@@ -36,37 +36,41 @@ function App() {
 
   function calculateResult() {
     setisLoading(true);
-    setTimeout(() => {
-      setisLoading(false);
-      getCurrency(selectValue).then((data) =>{  setResult((inputValue * data.rates[0].mid).toFixed(2))
-      setAlert("")
-    setInputValue(0)
-    setSelectValue("Wybierz walutę")}
-      
-      ).catch((error)=> setAlert(error))
-      
-    }, 3000);
-    
 
+    getCurrency(selectValue)
+      .then((data) => {
+        setTimeout(() => {
+          setInset(`${inputValue}  ${selectValue} ${"="}`);
+          setResult((inputValue * data.rates[0].mid).toFixed(2));
+          setAlert("");
+        }, 1000);
+      })
+      .catch((error) => setAlert(error.message))
+      .finally(() => {
+        setTimeout(() => {
+          setInputValue("");
+          setSelectValue("Wybierz walutę");
+          setisLoading(false);
+        }, 1000);
+      });
   }
 
   return (
     <div className="container">
-      {" "}
       <div className="currency-container">
         <Header />
         <CurrencyInput inputChange={handleInputChange} value={inputValue} />
-        <SelectCurrencies onChange={handleSelectChange} selectValue={selectValue} />
+        <SelectCurrencies
+          onChange={handleSelectChange}
+          selectValue={selectValue}
+        />
         <CounterButton onClick={handleButtonClick} />
         <AlertMessage alert={alert} />
         <Loader isLoading={isLoading} />
-        <Result result={result} />
-        
-      </div>{" "}
+        <Result result={result} inset={inset} />
+      </div>
     </div>
-
   );
 }
 
 export default App;
-
