@@ -1,13 +1,13 @@
 import "./App.css";
-import Header from "./Components/Header/Header";
-import CurrencyInput from "./Components/Input/Input";
-import SelectCurrencies from "./Components/Select/Select";
-import CounterButton from "./Components/Button/Button";
+import Header from "./Components/Header";
+import CurrencyInput from "./Components/Input";
+import SelectCurrencies from "./Components/Select";
+import CounterButton from "./Components/Button";
 import { useState } from "react";
 import getCurrency from "./services/fetchApi";
-import AlertMessage from "./Components/Alert/Alert";
-import Loader from "./Components/Loader/Loader";
-import Result from "./Components/Result/Result";
+import AlertMessage from "./Components/Alert";
+import Loader from "./Components/Loader";
+import Result from "./Components/Result";
 
 function App() {
   const [inputValue, setInputValue] = useState("");
