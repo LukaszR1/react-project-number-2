@@ -4,7 +4,7 @@ import CurrencyInput from "./Components/Input/Input";
 import SelectCurrencies from "./Components/Select/Select";
 import CounterButton from "./Components/Button/Button";
 import { useState } from "react";
-import getCurrency from "./Services/FetchApi";
+import getCurrency from "./services/fetchApi";
 import AlertMessage from "./Components/Alert/Alert";
 import Loader from "./Components/Loader/Loader";
 import Result from "./Components/Result/Result";
@@ -39,19 +39,15 @@ function App() {
 
     getCurrency(selectValue)
       .then((data) => {
-        setTimeout(() => {
-          setInset(`${inputValue}  ${selectValue} ${"="}`);
-          setResult((inputValue * data.rates[0].mid).toFixed(2));
-          setAlert("");
-        }, 1000);
+        setInset(`${inputValue}  ${selectValue} ${"="}`);
+        setResult((inputValue * data.rates[0].mid).toFixed(2));
+        setAlert("");
       })
       .catch((error) => setAlert(error.message))
       .finally(() => {
-        setTimeout(() => {
-          setInputValue("");
-          setSelectValue("Wybierz walutę");
-          setisLoading(false);
-        }, 1000);
+        setInputValue("");
+        setSelectValue("Wybierz walutę");
+        setisLoading(false);
       });
   }
 
@@ -74,3 +70,4 @@ function App() {
 }
 
 export default App;
+
