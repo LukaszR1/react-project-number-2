@@ -4,7 +4,7 @@ import CurrencyInput from "./Components/Input/Input";
 import SelectCurrencies from "./Components/Select/Select";
 import CounterButton from "./Components/Button/Button";
 import { useState } from "react";
-import getCurrency from "./services/FetchApi";
+import getCurrency from "./Services/FetchApi";
 import AlertMessage from "./Components/Alert/Alert";
 import Loader from "./Components/Loader/Loader";
 import Result from "./Components/Result/Result";
