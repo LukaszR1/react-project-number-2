@@ -1,21 +1,22 @@
-import "./App.css";
-import Header from "./Components/Header";
-import CurrencyInput from "./Components/Input";
-import SelectCurrencies from "./Components/Select";
-import CounterButton from "./Components/Button";
-import { useState } from "react";
 import getCurrency from "./services/fetchApi";
-import AlertMessage from "./Components/Alert";
-import Loader from "./Components/Loader";
-import Result from "./Components/Result";
+import "./App.css";
+import { useState } from "react";
+import Header from "./components/Header";
+import CurrencyInput from "./components/Input";
+import SelectCurrencies from "./components/Select";
+import CounterButton from "./components/Button";
+import AlertMessage from "./components/Alert";
+import Loader from "./components/Loader";
+import Result from "./components/Result";
 
-function App() {
+export default function App() {
   const [inputValue, setInputValue] = useState("");
   const [selectValue, setSelectValue] = useState("Wybierz walutę");
   const [result, setResult] = useState(0);
-  const [isLoading, setisLoading] = useState("");
+  const [isLoading, setIsLoading] = useState("");
   const [alert, setAlert] = useState("");
   const [inset, setInset] = useState("");
+
   function handleInputChange(value) {
     setInputValue(value);
   }
@@ -35,11 +36,10 @@ function App() {
   }
 
   function calculateResult() {
-    setisLoading(true);
-
+    setIsLoading(true);
     getCurrency(selectValue)
       .then((data) => {
-        setInset(`${inputValue}  ${selectValue} ${"="}`);
+        setInset(`${inputValue}  ${selectValue} = `);
         setResult((inputValue * data.rates[0].mid).toFixed(2));
         setAlert("");
       })
@@ -47,7 +47,7 @@ function App() {
       .finally(() => {
         setInputValue("");
         setSelectValue("Wybierz walutę");
-        setisLoading(false);
+        setIsLoading(false);
       });
   }
 
@@ -68,6 +68,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
-

@@ -4,7 +4,7 @@ export default function SelectCurrencies({ onChange, selectValue }) {
       className="form-select"
       id="select-currencies"
       aria-label="Default select example"
-      value = {selectValue}
+      value={selectValue}
       onChange={(event) => onChange(event.target.value)}
     >
       <option>Wybierz walutę</option>
